@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  
+  <title>contacto</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!--captha -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
+  <style>           
+      html, body {
+      padding: 1% 1% 1% 1%;
+      margin: 1% 0% -5% 0%;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+       background-color: #e0e0e0;} 
+   #f { background:#e3f2fd ;
+        margin: 1% 5% 5% 5%;
+        padding: 4% 2% 2% 0%;
+        border-radius: 11%;
+        height: auto;
+   }
+   #i{background:#e0e0e0 ;
+        margin: 1% 1% 1% 1%;
+        padding: 1% 1% 1% 1%;}
+
+</style>
+
+</head>
+<body>
+  <div id="f"> 
+<div class="container-fluid ">
+  <div class="row">
+   <div class="col-4 "></div>
+    <div class="col-4 rounded-3 bg-primary text-center text-white" style="word-wrap: break-word; overflow-wrap: break-word;"> CONTACTO
+    </div>
+    <div class="col-4 "></div>
+  </div>
+</div>
+
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col-6 rounded-4 mt-2 bg-primary text-center text-white p-1" style="margin-left: 25%;">
+            <label for="nombreApellido" class="form-label">NOMBRE Y APELLIDO</label>
+            <input type="text" class="form-control rounded-4" id="nombreApellido" placeholder="Nombre Y Apellido" name="nombre_apellido">
+        </div>
+    </div>
+
+    <div class="col-6 rounded-4 mt-2 bg-primary text-center text-white p-1" style="margin-left: 25%;">
+        <label for="telUsuario" class="form-label">TEL</label>
+        <input type="tel" class="form-control rounded-4" id="telUsuario" placeholder="tel" name="telefono">
+    </div>
+
+    <div class="col-6 rounded-4 bg-primary text-center mt-2 text-white p-1" style="margin-left: 25%;">
+        <label for="tipoCliente" class="form-label">CLIENTE</label>
+        <input type="text" class="form-control rounded-4" id="tipoCliente" placeholder="cliente" name="cliente">
+    </div>
+
+    <div class="col-6 rounded-4 bg-primary mt-2 text-center text-white p-1" style="margin-left: 25%;">
+        <label for="direccionUsuario" class="form-label">DIRECCION</label>
+        <input type="text" class="form-control rounded-4" id="direccionUsuario" placeholder="Direccion, calles,localidad, etc" name="direccion">
+    </div>
+
+    <div class="col-6 rounded-4 bg-primary text-center mt-2 text-white p-1" style="margin-left: 25%;">
+        <label for="correoUsuario" class="form-label">EMAIL</label>
+        <input type="email" class="form-control rounded-4" id="correoUsuario" name="email" placeholder="name@example.com">
+    </div>
+
+    <div class="col-10 rounded-4 bg-primary text-center mt-2 text-white p-1" style="margin-left: 8%;">
+        <label for="asuntoMensaje" class="form-label">ASUNTO</label>
+        <textarea class="form-control rounded-5" id="asuntoMensaje" name="asunto" placeholder="Escribe tu mensaje" rows="3"></textarea>
+    </div>
+
+    <div class="col-6 rounded-4 mt-4" style="margin-left: 8%;">
+        <div class="g-recaptcha" data-sitekey="6LemOPYrAAAAAMGLt1Gs1XLSL-63bi7xMJHGvGuR"></div>
+    </div>
+
+    <button type="button" style="margin-left: 8%" class="btn btn-primary btn-lg mt-4" id="enviarDatosBtn">ENVIAR</button>
+</div>
+<div id="i"> 
+</div>
+<script>
+// La URL de tu servidor (¡Asegúrate de cambiar esto!)
+const URL_DEL_SERVIDOR = 'https://script.google.com/macros/s/AKfycbyynjHG6QiTqOafvWWXQ4LrAtaepNexr7Cv1AJh1Rn_x6OTz84Tpju_mg3CD9thT8DM/exec';
+
+/**
+ * Recopila los datos del formulario de forma dinámica usando querySelectorAll,
+ * verifica el token de reCAPTCHA y los envía al servidor.
+ */
+async function enviarDatosFormulario() {
+    
+    // =========================================================
+    // >>> MODIFICACIÓN 1: VERIFICACIÓN DEL TOKEN AL INICIO <<<
+    // =========================================================
+    const recaptchaToken = grecaptcha.getResponse();
+
+    if (!recaptchaToken) {
+        alert('Por favor, marca la casilla "No soy un robot". 🤖');
+        return; // Detiene la función si no hay token.
+    }
+    // =========================================================
+
+
+    // 1. Recolectar todos los elementos que tienen un atributo 'name'
+    const camposFormulario = document.querySelectorAll('input[name], textarea[name]');
+
+    // 2. Crear el objeto de datos vacío que se enviará como JSON
+    const datosParaEnviar = {};
+
+    // 3. Iterar sobre todos los campos y llenar el objeto de datos
+    camposFormulario.forEach(campo => {
+        const nombreCampo = campo.name;
+        const valorCampo = campo.value;
+        datosParaEnviar[nombreCampo] = valorCampo;
+    });
+
+    // =========================================================
+    // >>> MODIFICACIÓN 2: ADJUNTAR EL TOKEN A LOS DATOS <<<
+    // El servidor usará este campo para verificar la respuesta con Google.
+    // =========================================================
+    datosParaEnviar['g-recaptcha-response'] = recaptchaToken;
+    // =========================================================
+    
+    // 4. Configuración y envío con fetch
+    try {
+        const respuesta = await fetch(URL_DEL_SERVIDOR, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datosParaEnviar)
+        });
+
+        // 5. Manejo de la respuesta
+        if (respuesta.ok) {
+            const resultado = await respuesta.json(); 
+            console.log('Datos enviados con éxito:', resultado);
+            alert('¡Mensaje enviado con éxito! 🎉');
+            
+            // =========================================================
+            // >>> MODIFICACIÓN 3A: REINICIAR WIDGET EN ÉXITO <<<
+            grecaptcha.reset(); 
+            // =========================================================
+
+        } else {
+            console.error('Error al enviar los datos. Estado:', respuesta.status);
+            alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo. 😞');
+            
+            // =========================================================
+            // >>> MODIFICACIÓN 3B: REINICIAR WIDGET EN FALLO <<<
+            grecaptcha.reset(); 
+            // =========================================================
+        }
+    } catch (error) {
+        console.error('Error de red durante la petición fetch:', error);
+        alert('No se pudo conectar con el servidor. Verifica tu conexión a internet.');
+
+        // =========================================================
+        // >>> MODIFICACIÓN 3C: REINICIAR WIDGET EN ERROR DE RED <<<
+        grecaptcha.reset(); 
+        // =========================================================
+    }
+}
+
+// 6. Adjuntar la función al botón usando su ID
+document.getElementById('enviarDatosBtn').addEventListener('click', enviarDatosFormulario);
+</script>
+</body>
+</html>
