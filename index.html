@@ -85,63 +85,122 @@
 <script>
 // Tu URL sigue siendo la misma:
 const URL_DEL_SERVIDOR = 'https://script.google.com/macros/s/AKfycbzVq1vRHmidoRtpcc_WQ66Cjzi7-vMr02Cug7250oLteAosWB_5l_Q9Xhe3ToDvy87udQ/exec'; 
-
 // 1. Enlazar el botón de envío
 document.getElementById('enviarDatosBtn').addEventListener('click', enviarDatosFormulario);
 
-async function enviarDatosFormulario() {
-    
-    // 2. VERIFICACIÓN DE RECAPTCHA (Frontend)
-    const recaptchaToken = grecaptcha.getResponse();
+// ------------------------------------------------
+// FUNCIONES DE SEGURIDAD (Frontend)
+// ------------------------------------------------
 
-    if (!recaptchaToken) {
-        alert('Por favor, marca la casilla "No soy un robot". 🤖');
-        return; 
-    }
-    
-    // 3. RECOLECCIÓN DE DATOS
-    const camposFormulario = document.querySelectorAll('input[name], textarea[name]');
-    const datosParaEnviar = {};
-
-    camposFormulario.forEach(campo => {
-        datosParaEnviar[campo.name] = campo.value;
-    });
-
-    // 4. ADJUNTAR TOKEN
-    datosParaEnviar['g-recaptcha-response'] = recaptchaToken;
-    
-    // 5. CONVERTIR DATOS A QUERY STRING (Formato que Apps Script acepta para evitar CORS)
-    const queryString = Object.keys(datosParaEnviar).map(key => {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(datosParaEnviar[key]);
-    }).join('&');
-
-    // 6. ENVÍO (Usando la URL con el query string)
-    try {
-        // Usamos GET con los parámetros, lo cual es compatible con Apps Script sin CORS.
-        const respuesta = await fetch(`${URL_DEL_SERVIDOR}?${queryString}`, {
-            method: 'GET' 
-            // NOTA: También puedes usar fetch(URL_DEL_SERVIDOR, { method: 'POST', body: new FormData(tuFormulario) }) 
-            // pero el método GET con query string es el más simple y compatible aquí.
-        });
-
-        // La respuesta del Apps Script es ahora texto plano JSON.
-        const resultadoTexto = await respuesta.text(); 
-        const resultado = JSON.parse(resultadoTexto);
-
-        if (resultado.success) {
-            alert('¡Mensaje enviado y guardado con éxito! 🎉');
-        } else {
-            console.error('Error:', resultado.message);
-            alert(`Error: ${resultado.message}`);
-        }
-    } catch (error) {
-        console.error('Error de red durante la petición fetch:', error);
-        alert('Error: No se pudo conectar con el servidor.');
-    } finally {
-        grecaptcha.reset(); 
-    }
+// 🛡️ Filtro 1: Valida que un campo solo contenga letras (a-z) y espacios.
+function validarSoloLetras(texto) {
+    if (!texto) return false;
+    // Expresión Regular estricta: solo letras mayúsculas/minúsculas y espacios.
+    const soloLetrasRegex = /^[a-zA-Z\s]+$/;
+    return soloLetrasRegex.test(texto.trim());
 }
-</script>
+
+// 🛡️ Filtro 2: Valida un formato básico de email.
+function validarEmail(email) {
+    if (!email) return false;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+}
+
+// 🛡️ Filtro 3: Valida el teléfono (permite números, espacios, guiones, y paréntesis).
+function validarTelefono(telefono) {
+    if (!telefono) return true; // Asumimos que es opcional si está vacío
+    const telefonoRegex = /^[0-9\s\-\(\)]+$/;
+    return telefonoRegex.test(telefono.trim());
+}
+
+// ------------------------------------------------
+
+async function enviarDatosFormulario() {
+    
+    // 2. VERIFICACIÓN DE RECAPTCHA (Frontend)
+    const recaptchaToken = grecaptcha.getResponse();
+
+    if (!recaptchaToken) {
+        alert('Por favor, marca la casilla "No soy un robot". 🤖');
+        return; 
+    }
+
+    // 3. RECOLECCIÓN DE DATOS (Necesaria para la validación)
+    const camposFormulario = document.querySelectorAll('input[name], textarea[name]');
+    const datosParaEnviar = {};
+
+    camposFormulario.forEach(campo => {
+        datosParaEnviar[campo.name] = campo.value;
+    });
+
+    // ⚠️ 4. FILTRO DE VALIDACIÓN DE CAMPOS (Filtro de Seguridad en el Frontend)
+    
+    // A. Campos con filtro estricto de SOLO LETRAS y ESPACIOS (Obligatorios)
+    const camposSoloLetras = ['nombre_apellido', 'cliente'];
+    for (let campo of camposSoloLetras) {
+        const valor = datosParaEnviar[campo];
+        const nombreVisible = campo.replace('_', ' ');
+        
+        if (!valor || valor.trim() === "") {
+            alert(`El campo '${nombreVisible}' es obligatorio.`);
+            document.querySelector(`[name="${campo}"]`).focus();
+            return;
+        }
+
+        if (!validarSoloLetras(valor)) {
+            alert(`Error: El campo ${nombreVisible} solo puede contener letras y espacios.`);
+            document.querySelector(`[name="${campo}"]`).focus();
+            return;
+        }
+    }
+    
+    // B. Validación del campo EMAIL (Obligatorio)
+    if (!validarEmail(datosParaEnviar.email)) {
+        alert("El formato del email es inválido o el campo está vacío.");
+        document.querySelector('[name="email"]').focus();
+        return;
+    }
+    
+    // C. Validación del campo TELÉFONO (Si existe y tiene valor)
+    if (datosParaEnviar.telefono && datosParaEnviar.telefono.trim() !== "" && !validarTelefono(datosParaEnviar.telefono)) {
+        alert("El campo teléfono contiene caracteres inválidos. Solo se permiten números, espacios, guiones y paréntesis.");
+        document.querySelector('[name="telefono"]').focus();
+        return;
+    }
+
+
+    // 5. ADJUNTAR TOKEN (Si las validaciones pasaron)
+    datosParaEnviar['g-recaptcha-response'] = recaptchaToken;
+    
+    // 6. CONVERTIR DATOS A QUERY STRING
+    const queryString = Object.keys(datosParaEnviar).map(key => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(datosParaEnviar[key]);
+    }).join('&');
+
+    // 7. ENVÍO (Usando la URL con el query string)
+    try {
+        const respuesta = await fetch(`${URL_DEL_SERVIDOR}?${queryString}`, {
+            method: 'GET' 
+        });
+
+        const resultadoTexto = await respuesta.text(); 
+        const resultado = JSON.parse(resultadoTexto);
+
+        if (resultado.success) {
+            alert('¡Mensaje enviado y guardado con éxito! 🎉');
+        } else {
+            // Captura el error de validación del backend (si lo hay)
+            console.error('Error del servidor:', resultado.message);
+            alert(`Error: ${resultado.message}`);
+        }
+    } catch (error) {
+        console.error('Error de red durante la petición fetch:', error);
+        alert('Error: No se pudo conectar con el servidor.');
+    } finally {
+        grecaptcha.reset(); 
+    }
+}
 </script>
 </body>
 </html>
