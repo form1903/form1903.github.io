@@ -1,207 +1,243 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  
-  <title>contacto</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<!--captha -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  
-  <style>           
-      html, body {
-      padding: 1% 1% 1% 1%;
-      margin: 1% 0% -5% 0%;
-      height: 100%;
-      width: 100%;
-      box-sizing: border-box;
-       background-color: #e0e0e0;} 
-   #f { background:#e3f2fd ;
-        margin: 1% 5% 5% 5%;
-        padding: 4% 2% 2% 0%;
-        border-radius: 11%;
-        height: auto;
-   }
-   #i{background:#e0e0e0 ;
-        margin: 1% 1% 1% 1%;
-        padding: 1% 1% 1% 1%;}
+<html lang="en">
 
-</style>
+    <head>
+        <meta charset="utf-8">
+        <title>ORLANDO construcciones</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
 
-</head>
-<body>
-  <div id="f"> 
-<div class="container-fluid ">
-  <div class="row">
-   <div class="col-4 "></div>
-    <div class="col-4 rounded-3 bg-primary text-center text-white" style="word-wrap: break-word; overflow-wrap: break-word;"> CONTACTO
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+          <!--scripts sheets -->
+      <script>
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+fetch("https://script.google.com/macros/s/AKfycbxcFEY_bbQ7PsHNZIWvWAYhNF3aCEnQKy18p23_nDb_WLzRGxgeeSG0MkVLAlIx1W846g/exec", {
+
+  , {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.text())
+  .then(res => {
+    if (res === "OK") {
+      alert("Mensaje enviado correctamente ✅");
+      form.reset();
+    } else {
+      alert("Error en el envío ❌");
+    }
+  })
+  .catch(() => {
+    alert("Error de conexión ❌");
+  });
+});
+</script>
+
+   
+
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid sticky-top px-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-light py-3 px-4">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="text-secondary display-6"><i class="fas fa-city text-primary me-3"></i>ORLANDO <br>construcciones</h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto pt-2 pt-lg-0">
+                        <a href="index.html" class="nav-item nav-link">inicio</a>
+                        <a href="service.html" class="nav-item nav-link">Servicios</a>
+                    </div>
+                   
+                </div>
+            </nav>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">CONTACTO</h4>
+                
+            </div>
+        </div>
+        <!-- Header End -->
+
+        <!-- Contact Start -->
+       <div class="container-fluid contact bg-light py-5">
+  <div class="container py-5">
+    <div class="row g-5">
+      <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
+
+        <div class="text-center mx-auto pb-5" style="max-width: 800px;">
+          <p class="text-uppercase text-secondary fs-5 mb-0">Conectémonos</p>
+          <h2 class="display-4 text-capitalize mb-3">Envía tu mensaje</h2>
+        </div>
+
+        <!-- ✅ FORM  -->
+        <form id="contactForm">
+          <div class="row g-3">
+
+            <div class="col-lg-12 col-xl-6">
+              <div class="form-floating border border-secondary">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                <label for="nombre">Nombre</label>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+              <div class="form-floating border border-secondary">
+                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
+                <label for="apellido">Apellido</label>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+              <div class="form-floating border border-secondary">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <label for="email">Email</label>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+              <div class="form-floating border border-secondary">
+                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
+                <label for="telefono">Teléfono</label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-floating border border-secondary">
+                <input type="text" class="form-control" id="ubicacion" name="ubicacion" placeholder="País, provincia, ciudad">
+                <label for="ubicacion">País, provincia, ciudad</label>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+              <div class="form-floating border border-secondary">
+                <input type="text" class="form-control" id="proyecto" name="proyecto" placeholder="Proyecto">
+                <label for="proyecto">Proyecto</label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-floating border border-secondary">
+                <textarea class="form-control" id="mensaje" name="mensaje" style="height:160px"></textarea>
+                <label for="mensaje">Describa su proyecto</label>
+              </div>
+            </div>
+
+            <!-- reCAPTCHA 
+            <div class="col-12">
+              <div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
+            </div>
+                -->
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary w-100 py-3">
+                Enviar
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
     </div>
-    <div class="col-4 "></div>
   </div>
 </div>
 
-<div class="container-fluid mt-2">
-    <div class="row">
-        <div class="col-6 rounded-4 mt-2 bg-primary text-center text-white p-1" style="margin-left: 25%;">
-            <label for="nombreApellido" class="form-label">NOMBRE Y APELLIDO</label>
-            <input type="text" class="form-control rounded-4" id="nombreApellido" placeholder="Nombre Y Apellido" name="nombre_apellido">
+                  <!-- mapa-->
+                    <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.4s">
+                        <div class="contact-map h-100 w-100">
+                            <iframe class="h-100 w-100" 
+                            style="height: 500px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d24111681.598662306!2d-62.9839581!3d-42.4634716!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccaf5f5fdc667%3A0x3d2f77992af00fa8!2sArgentina!5e0!3m2!1ses-419!2sar!4v1769911672223!5m2!1ses-419!2sar" 
+width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <!-- Contact End -->
 
-    <div class="col-6 rounded-4 mt-2 bg-primary text-center text-white p-1" style="margin-left: 25%;">
-        <label for="telUsuario" class="form-label">TEL</label>
-        <input type="tel" class="form-control rounded-4" id="telUsuario" placeholder="tel" name="telefono">
-    </div>
+        <!-- Footer Start -->
+       
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Contacto</h4>
+                            <a href=""><i class="fa fa-map-marker-alt me-2"></i> bs-as/arg</a>
+                            <a href=""><i class="fas fa-envelope me-2"></i> info@example.com</a>
+                            <a href=""><i class="fas fa-envelope me-2"></i> info@example.com</a>
+                            <a href=""><i class="fas fa-phone me-2"></i> +012 345 67890</a>
+                            <a href="" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
+                            <div class="footer-btn d-flex align-items-center">
+                                <a class="btn btn-secondary btn-md-square me-2" href=""><i class="fab fa-facebook-f text-white"></i></a>
+                                <a class="btn btn-secondary btn-md-square me-2" href=""><i class="fab fa-twitter text-white"></i></a>
+                                <a class="btn btn-secondary btn-md-square me-2" href=""><i class="fab fa-instagram text-white"></i></a>
+                                <a class="btn btn-secondary btn-md-square me-0" href=""><i class="fab fa-linkedin-in text-white"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
 
-    <div class="col-6 rounded-4 bg-primary text-center mt-2 text-white p-1" style="margin-left: 25%;">
-        <label for="tipoCliente" class="form-label">CLIENTE</label>
-        <input type="text" class="form-control rounded-4" id="tipoCliente" placeholder="cliente" name="cliente">
-    </div>
+       
 
-    <div class="col-6 rounded-4 bg-primary mt-2 text-center text-white p-1" style="margin-left: 25%;">
-        <label for="direccionUsuario" class="form-label">DIRECCION</label>
-        <input type="text" class="form-control rounded-4" id="direccionUsuario" placeholder="Direccion, calles,localidad, etc" name="direccion">
-    </div>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-secondary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
-    <div class="col-6 rounded-4 bg-primary text-center mt-2 text-white p-1" style="margin-left: 25%;">
-        <label for="correoUsuario" class="form-label">EMAIL</label>
-        <input type="email" class="form-control rounded-4" id="correoUsuario" name="email" placeholder="name@example.com">
-    </div>
-
-    <div class="col-10 rounded-4 bg-primary text-center mt-2 text-white p-1" style="margin-left: 8%;">
-        <label for="asuntoMensaje" class="form-label">ASUNTO</label>
-        <textarea class="form-control rounded-5" id="asuntoMensaje" name="asunto" placeholder="Escribe tu mensaje" rows="3"></textarea>
-    </div>
-
-    <div class="col-6 rounded-4 mt-4" style="margin-left: 8%;">
-        <div class="g-recaptcha" data-sitekey="6LemOPYrAAAAAMGLt1Gs1XLSL-63bi7xMJHGvGuR"></div>
-    </div>
-
-    <button type="button" style="margin-left: 8%" class="btn btn-primary btn-lg mt-4" id="enviarDatosBtn">ENVIAR</button>
-</div>
-
-<script>
-// Tu URL sigue siendo la misma:
-const URL_DEL_SERVIDOR = 'https://script.google.com/macros/s/AKfycbzVq1vRHmidoRtpcc_WQ66Cjzi7-vMr02Cug7250oLteAosWB_5l_Q9Xhe3ToDvy87udQ/exec'; 
-// 1. Enlazar el botón de envío
-document.getElementById('enviarDatosBtn').addEventListener('click', enviarDatosFormulario);
-
-// ------------------------------------------------
-// FUNCIONES DE SEGURIDAD (Frontend)
-// ------------------------------------------------
-
-// 🛡️ Filtro 1: Valida que un campo solo contenga letras (a-z) y espacios.
-function validarSoloLetras(texto) {
-    if (!texto) return false;
-    // Expresión Regular estricta: solo letras mayúsculas/minúsculas y espacios.
-    const soloLetrasRegex = /^[a-zA-Z\s]+$/;
-    return soloLetrasRegex.test(texto.trim());
-}
-
-// 🛡️ Filtro 2: Valida un formato básico de email.
-function validarEmail(email) {
-    if (!email) return false;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email.trim());
-}
-
-// 🛡️ Filtro 3: Valida el teléfono (permite números, espacios, guiones, y paréntesis).
-function validarTelefono(telefono) {
-    if (!telefono) return true; // Asumimos que es opcional si está vacío
-    const telefonoRegex = /^[0-9\s\-\(\)]+$/;
-    return telefonoRegex.test(telefono.trim());
-}
-
-// ------------------------------------------------
-
-async function enviarDatosFormulario() {
-    
-    // 2. VERIFICACIÓN DE RECAPTCHA (Frontend)
-    const recaptchaToken = grecaptcha.getResponse();
-
-    if (!recaptchaToken) {
-        alert('Por favor, marca la casilla "No soy un robot". 🤖');
-        return; 
-    }
-
-    // 3. RECOLECCIÓN DE DATOS (Necesaria para la validación)
-    const camposFormulario = document.querySelectorAll('input[name], textarea[name]');
-    const datosParaEnviar = {};
-
-    camposFormulario.forEach(campo => {
-        datosParaEnviar[campo.name] = campo.value;
-    });
-
-    // ⚠️ 4. FILTRO DE VALIDACIÓN DE CAMPOS (Filtro de Seguridad en el Frontend)
-    
-    // A. Campos con filtro estricto de SOLO LETRAS y ESPACIOS (Obligatorios)
-    const camposSoloLetras = ['nombre_apellido', 'cliente'];
-    for (let campo of camposSoloLetras) {
-        const valor = datosParaEnviar[campo];
-        const nombreVisible = campo.replace('_', ' ');
         
-        if (!valor || valor.trim() === "") {
-            alert(`El campo '${nombreVisible}' es obligatorio.`);
-            document.querySelector(`[name="${campo}"]`).focus();
-            return;
-        }
-
-        if (!validarSoloLetras(valor)) {
-            alert(`Error: El campo ${nombreVisible} solo puede contener letras y espacios.`);
-            document.querySelector(`[name="${campo}"]`).focus();
-            return;
-        }
-    }
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
     
-    // B. Validación del campo EMAIL (Obligatorio)
-    if (!validarEmail(datosParaEnviar.email)) {
-        alert("El formato del email es inválido o el campo está vacío.");
-        document.querySelector('[name="email"]').focus();
-        return;
-    }
-    
-    // C. Validación del campo TELÉFONO (Si existe y tiene valor)
-    if (datosParaEnviar.telefono && datosParaEnviar.telefono.trim() !== "" && !validarTelefono(datosParaEnviar.telefono)) {
-        alert("El campo teléfono contiene caracteres inválidos. Solo se permiten números, espacios, guiones y paréntesis.");
-        document.querySelector('[name="telefono"]').focus();
-        return;
-    }
 
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
 
-    // 5. ADJUNTAR TOKEN (Si las validaciones pasaron)
-    datosParaEnviar['g-recaptcha-response'] = recaptchaToken;
-    
-    // 6. CONVERTIR DATOS A QUERY STRING
-    const queryString = Object.keys(datosParaEnviar).map(key => {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(datosParaEnviar[key]);
-    }).join('&');
+    </body>
 
-    // 7. ENVÍO (Usando la URL con el query string)
-    try {
-        const respuesta = await fetch(`${URL_DEL_SERVIDOR}?${queryString}`, {
-            method: 'GET' 
-        });
-
-        const resultadoTexto = await respuesta.text(); 
-        const resultado = JSON.parse(resultadoTexto);
-
-        if (resultado.success) {
-            alert('¡Mensaje enviado y guardado con éxito! 🎉');
-        } else {
-            // Captura el error de validación del backend (si lo hay)
-            console.error('Error del servidor:', resultado.message);
-            alert(`Error: ${resultado.message}`);
-        }
-    } catch (error) {
-        console.error('Error de red durante la petición fetch:', error);
-        alert('Error: No se pudo conectar con el servidor.');
-    } finally {
-        grecaptcha.reset(); 
-    }
-}
-</script>
-    <div id="i"> 
-</div>
-</body>
 </html>
